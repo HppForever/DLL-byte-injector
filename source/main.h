@@ -1,0 +1,10 @@
+#include <iostream>
+#include <thread>
+#include "data.h"
+#include "common/miscellaneous.h"
+#include "common/skcrypter.h"
+#include "graphics/graphics.h"
+#include <sstream>
+#include <Windows.h>
+#include <TlHelp32.h>
+#include <conio.h>

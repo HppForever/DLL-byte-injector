@@ -44,14 +44,11 @@ void main()
 
 #ifdef PRINT_INJECT_LOADING
     Miscellaneous::Strings::MoveTo_NewLine(1);
-
-    std::string Animation = std::string(skCrypt("|/-\\"));
-
     Graphics::TextColor::Set(INJECTION_COLOR);
 
     for (int i = NULL; i < (int)MAXIMUM_PERCENTAGE; i++)
     {
-        printf(skCrypt("\rInjection... %c %d%%"), Animation[i % 4], i + 1);
+        printf(skCrypt("\rInjection... %c %d%%"), std::string(skCrypt("|/-\\"))[i % 4], i + 1);
         std::this_thread::sleep_for(std::chrono::milliseconds(DEFAULT_PRINT_VELOCITY / 3));
     }
 

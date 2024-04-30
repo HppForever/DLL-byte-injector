@@ -1,3 +1,5 @@
+#define RANDOM_EXE_NAME // Comment if you don't want to bypass pc checkers like wargods
+
 #define PRINT_CHARACTERISTICS // Comment if you don't want to print the characterization
 #define PRINT_INJECT_LOADING // Comment if you don't want to wait for the injection to load
 

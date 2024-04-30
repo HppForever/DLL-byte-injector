@@ -6,7 +6,7 @@ void main()
 
     GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), &PrevMode);
     SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_EXTENDED_FLAGS | (PrevMode & ~ENABLE_QUICK_EDIT_MODE));
-    SetConsoleTitle(TEXT("Free DLL byte injector by hpp forever"));
+    SetConsoleTitle(TEXT(skCrypt("Free DLL byte injector by hpp forever")));
 
     Graphics::Print::TypeWriter(TITLE_COLOR, TITLE, 2, DEFAULT_PRINT_VELOCITY, UNDETECT_VAC_COLOR, skCrypt(" (undetect vac)"));
     Graphics::Print::TypeWriter(HEADER_COLOR, skCrypt("Selected cheat: "), 1, DEFAULT_PRINT_VELOCITY, HEADER_ARGUMENT_COLOR, CHEAT_NAME);

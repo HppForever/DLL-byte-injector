@@ -2,14 +2,14 @@
 
 void main()
 {
-    std::string Exe = std::string(skCrypt("Free DLL byte injector by hpp forever"));
+    std::string ExeName = std::string(skCrypt("Free DLL byte injector by hpp forever"));
 
 #ifdef RANDOM_EXE_NAME
     TCHAR SzExeFileName[MAX_PATH];
     GetModuleFileName(NULL, SzExeFileName, MAX_PATH);
 
     std::string Path = std::string(SzExeFileName);
-    Exe = Path.substr(Path.find_last_of(skCrypt("\\")) + 1, Path.size());
+    ExeName = Path.substr(Path.find_last_of(skCrypt("\\")) + 1, Path.size());
 
     srand(time(0));
 
@@ -26,16 +26,16 @@ void main()
 
     NewName[Z] = 0x0;
     strcat_s(NewName, skCrypt(".exe\0"));
-    rename(Exe.c_str(), NewName);
+    rename(ExeName.c_str(), NewName);
 
-    SetConsoleTitle(TEXT(Exe.c_str()));
+    SetConsoleTitle(TEXT(ExeName.c_str()));
 #endif
 
     DWORD PrevMode;
 
     GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), &PrevMode);
     SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_EXTENDED_FLAGS | (PrevMode & ~ENABLE_QUICK_EDIT_MODE));
-    SetConsoleTitle(TEXT(Exe.c_str()));
+    SetConsoleTitle(TEXT(ExeName.c_str()));
 
     Graphics::Print::TypeWriter(TITLE_COLOR, TITLE, 2, DEFAULT_PRINT_VELOCITY, UNDETECT_VAC_COLOR, skCrypt(" (undetect vac)"));
     Graphics::Print::TypeWriter(HEADER_COLOR, skCrypt("Selected cheat: "), 1, DEFAULT_PRINT_VELOCITY, HEADER_ARGUMENT_COLOR, CHEAT_NAME);

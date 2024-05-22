@@ -2,7 +2,7 @@
 
 void Miscellaneous::Strings::MoveTo_NewLine(int CountTransitions) // Defining transition functions to move to a new line as many times as specified in the "CountTransitions" argument
 {
-    for (int i = 0; i < CountTransitions; i++) // Transitions to a new line as many times as we passed the value through the "CountTransitions" argument
+    for (int i = NULL; i < CountTransitions; i++) // Transitions to a new line as many times as we passed the value through the "CountTransitions" argument
         printf("\n");
 }
 

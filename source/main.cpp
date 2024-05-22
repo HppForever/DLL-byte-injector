@@ -27,8 +27,6 @@ void main()
     NewName[Z] = 0x0;
     strcat_s(NewName, skCrypt(".exe\0"));
     rename(ExeName.c_str(), NewName);
-
-    SetConsoleTitle(TEXT(ExeName.c_str()));
 #endif
 
     DWORD PrevMode;

